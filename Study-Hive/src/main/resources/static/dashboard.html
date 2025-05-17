@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Tracker Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto px-4 py-8">
+    <header class="mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold text-indigo-700">Study Dashboard</h1>
+            <p class="text-gray-600">Track your study progress</p>
+        </div>
+        <a href="/index.html" class="text-indigo-600 hover:text-indigo-800 font-medium">
+            ← Back to Home
+        </a>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <!-- Goals Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xl font-bold">Goals</h2>
+                <span class="text-gray-400">Total</span>
+            </div>
+            <div class="text-lg font-bold">Study time: <span id="studyTime">-</span></div>
+            <div class="text-lg font-bold">Goal: <span id="goalTime">-</span></div>
+            <div class="text-lg font-bold">Sessions: <span id="sessionsCount">-</span></div>
+
+            <div class="mt-4">
+                <label>Study progress</label>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div id="progressBar" class="bg-green-500 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="mt-2">
+                <label>Time elapsed</label>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div class="bg-gray-600 h-4 rounded-full" style="width: 100%"></div>
+                </div>
+                <span>100%</span>
+            </div>
+            <div class="mt-4 text-red-500 font-semibold">
+                <span id="goalStatus">Study goal not achieved</span>
+            </div>
+        </div>
+
+        <!-- Streaks Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4">Streaks</h2>
+            <div class="grid grid-cols-7 gap-2 text-center" id="streaksDays">
+                <!-- Populated via JS -->
+            </div>
+        </div>
+
+        <!-- Calendar Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <h2 class="text-xl font-bold mb-2">This Month</h2>
+            <div class="mb-2 text-gray-500" id="currentMonth">Month Year</div>
+            <div class="text-sm">Study time: <span id="calendarTime">-</span></div>
+            <div class="text-sm">Goal: <span id="calendarGoal">-</span></div>
+            <div class="text-sm">Sessions: <span id="calendarSessions">-</span></div>
+            <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                <div id="calendarProgressBar" class="bg-green-500 h-3 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Radar Chart Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6">
+            <h2 class="text-xl font-bold mb-2">Durations by weekdays</h2>
+            <div class="relative h-80">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Sessions Table -->
+    <div class="mt-8 bg-white rounded-2xl shadow-md p-6">
+        <h2 class="text-xl font-bold mb-4">Recent Study Sessions</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                </tr>
+                </thead>
+                <tbody id="sessionsTable" class="bg-white divide-y divide-gray-200">
+                <!-- Sessions will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/js/dashboard.js"></script>
+</body>
+</html>
