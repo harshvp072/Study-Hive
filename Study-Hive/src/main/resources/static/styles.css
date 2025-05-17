@@ -1,18 +1,70 @@
-/* Custom styles */
-.container {
-    max-width: 1200px;
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* Animation for progress bars */
-#progressBar, #calendarProgressBar {
-    transition: width 0.5s ease-in-out;
+/* Blurred Full Background Image */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("bg.jpg"); /* Update to your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(4px); /* Reduced blur */
+    z-index: -1;
+    opacity: 0.85;
 }
 
-/* Responsive table */
-@media (max-width: 640px) {
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+/* Pastel card styling with soft green background and black border */
+.card-pastel {
+    background-color: rgb(202, 232, 189); /* soft green */
+    border: 2px solid black; /* black border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-pastel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Input and textarea styling inside pastel cards */
+.card-pastel input,
+.card-pastel textarea,
+
+.card-pastel select {
+    background-color: #ffffff;
+    border: 2px solid black;
+    border-radius: 0.5rem;
+    outline: none;
+    box-shadow: none;
+}
+
+.card-pastel input:focus,
+.card-pastel textarea:focus,
+
+.card-pastel select:focus {
+    border: 2px solid black;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Button inside pastel card */
+.card-pastel button {
+    background-color: rgb(250, 218, 122);
+    color: #333;
+    font-weight: 600;
+}
+
+.card-pastel button:hover {
+    background-color: rgb(245, 200, 80);
 }

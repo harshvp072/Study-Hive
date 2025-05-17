@@ -21,38 +21,102 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function updateGoalsCard(data) {
-    const hours = Math.floor(data.totalStudyMinutes / 60);
-    const minutes = data.totalStudyMinutes % 60;
-    document.getElementById("studyTime").textContent = `${hours}h ${minutes}m`;
+    const totalMinutes = data.totalStudyMinutes;
+    const goalMinutes = data.monthlyGoalMinutes;
 
-    const goalHours = Math.floor(data.goalMinutes / 60);
-    document.getElementById("goalTime").textContent = `${goalHours}h`;
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    const goalHours = Math.floor(goalMinutes / 60);
 
-    document.getElementById("sessionsCount").textContent = data.totalSessions;
+    const progress = (totalMinutes / goalMinutes) * 100;
 
-    const progress = Math.min((data.totalStudyMinutes / data.goalMinutes) * 100, 100);
-    document.getElementById("progressBar").style.width = `${progress}%`;
-    document.getElementById("progressPercent").textContent = `${progress.toFixed(1)}%`;
+    const studyTimeEl = document.getElementById("studyTime");
+    if (studyTimeEl) {
+        studyTimeEl.textContent = `${hours}h ${minutes}m`;
+    }
 
-    const goalStatus = document.getElementById("goalStatus");
-    goalStatus.textContent = progress >= 100 ? "🎉 Study goal achieved!" : "Study goal not achieved";
-    goalStatus.className = progress >= 100
-        ? "mt-4 text-green-500 font-semibold"
-        : "mt-4 text-red-500 font-semibold";
+    const goalTimeEl = document.getElementById("goalTime");
+    if (goalTimeEl) {
+        goalTimeEl.textContent = `${goalHours}h`;
+    }
+
+    const sessionsCountEl = document.getElementById("sessionsCount");
+    if (sessionsCountEl) {
+        sessionsCountEl.textContent = data.totalSessions;
+    }
+
+    const progressBarEl = document.getElementById("progressBar");
+    if (progressBarEl) {
+        progressBarEl.style.width = `${progress}%`;
+    }
+
+    const progressPercentEl = document.getElementById("progressPercent");
+    if (progressPercentEl) {
+        progressPercentEl.textContent = `${progress.toFixed(1)}%`;
+    }
+
+    const goalStatusEl = document.getElementById("goalStatus");
+    if (goalStatusEl) {
+        goalStatusEl.textContent =
+            progress >= 100
+                ? "Goal Achieved 🎉"
+                : "Keep Going 💪";
+    }
 }
 
+
 function updateStreaksCard(data) {
-    const weekDaysOrder = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    const weekDaysOrder = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const streaksContainer = document.getElementById("streaksDays");
     streaksContainer.innerHTML = '';
+
+    const today = new Date();
+    const todayDay = weekDaysOrder[today.getDay()]; // Get today's name (e.g., "MON")
 
     weekDaysOrder.forEach(day => {
         const el = document.createElement("div");
         el.textContent = day;
-        el.className = "rounded-full p-2 border-2 text-sm font-bold " +
-                      (data.weekdays[day] > 0 ? "border-green-500 text-green-600" : "border-red-400 text-red-400");
+
+        // Determine class based on data
+        let className = "rounded-full p-2 border-2 text-sm font-bold ";
+
+        if (day === todayDay) {
+            className += "border-blue-500 text-blue-600"; // Highlight current day
+        } else if (data.weekdays[day] > 0) {
+            className += "border-green-500 text-green-600"; // Past study day
+        } else {
+            className += "border-red-400 text-red-400"; // No study
+        }
+
+        el.className = className;
         streaksContainer.appendChild(el);
     });
+}
+
+function calculateStreak(sessions) {
+  // Sort by date
+  sessions.sort((a, b) => new Date(b.studyDate) - new Date(a.studyDate));
+  let streak = 0;
+  let currentDate = new Date();
+
+  for (let session of sessions) {
+    const sessionDate = new Date(session.studyDate);
+
+    if (
+      sessionDate.toDateString() === currentDate.toDateString()
+    ) {
+      streak++;
+      currentDate.setDate(currentDate.getDate() - 1);
+    } else if (
+      sessionDate.toDateString() ===
+      new Date(currentDate.setDate(currentDate.getDate() - 1)).toDateString()
+    ) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+  return streak;
 }
 
 function updateCalendarCard(data) {
