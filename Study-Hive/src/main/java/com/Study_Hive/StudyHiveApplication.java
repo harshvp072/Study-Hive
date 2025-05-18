@@ -11,5 +11,4 @@ public class StudyHiveApplication {
 		SpringApplication.run(StudyHiveApplication.class, args);
 
 	}
-
 }

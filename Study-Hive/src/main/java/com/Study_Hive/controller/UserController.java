@@ -43,11 +43,13 @@ public class UserController {
     public String login(@RequestParam String email,
                         @RequestParam String password,
                         HttpSession session) {
-        User user = userRepository.findByEmailAndPassword(email, password);
-        if (user != null) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {  // Only for plaintext passwords
             session.setAttribute("user", user);
-            return "redirect:/index.html"; // Goes to session creation page
+            System.out.println("Login successful for " + email);
+            return "redirect:/index.html";
         } else {
+            System.out.println("Login failed for " + email);
             return "redirect:/login.html?error=true";
         }
     }

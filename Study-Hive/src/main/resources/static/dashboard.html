@@ -13,8 +13,8 @@
 <div class="container mx-auto px-4 py-8">
     <header class="mb-8 flex justify-between items-center">
         <div>
-            <h1 class="text-3xl font-bold text-indigo-700">Study Dashboard</h1>
-            <p class="text-gray-600">Track your study progress</p>
+            <h1 class="text-3xl text-jet black">Study Dashboard</h1>
+            <p class="text-black">Track your study progress</p>
         </div>
         <a href="/index.html" class="text-indigo-600 hover:text-indigo-800 font-medium">
             ← Back to Home
@@ -26,7 +26,7 @@
         <!-- Goals Card (Updated Layout) -->
         <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col gap-4">
             <div class="flex justify-between items-center">
-                <h2 class="text-lg font-bold text-black flex items-center gap-1">
+                <h2 class="text-lg text-black flex items-center gap-1">
                     Goals
                     <span class="text-gray-400 text-sm cursor-help">❓</span>
                 </h2>
@@ -75,7 +75,7 @@
 
         <!-- Streaks Card -->
         <div class="bg-white rounded-2xl shadow-md p-6">
-            <h2 class="text-xl font-bold mb-4">Streaks</h2>
+            <h2 class="text-xl  mb-4">Streaks</h2>
             <div class="grid grid-cols-7 gap-2 text-center" id="streaksDays">
                 <!-- Populated via JS -->
             </div>
@@ -83,7 +83,7 @@
 
         <!-- Calendar Card -->
         <div class="bg-white rounded-2xl shadow-md p-6">
-            <h2 class="text-xl font-bold mb-2">This Month</h2>
+            <h2 class="text-xl  mb-2">This Month</h2>
             <div class="mb-2 text-gray-500" id="currentMonth">Month Year</div>
             <div class="text-sm">Study time: <span id="calendarTime">-</span></div>
             <div class="text-sm">Goal: <span id="calendarGoal">-</span></div>
@@ -95,7 +95,7 @@
 
         <!-- Radar Chart Card -->
         <div class="bg-white rounded-2xl shadow-md p-6">
-            <h2 class="text-xl font-bold mb-2">Durations by weekdays</h2>
+            <h2 class="text-xl  mb-2">Durations by weekdays</h2>
             <div class="relative h-80">
                 <canvas id="radarChart"></canvas>
             </div>
@@ -104,7 +104,7 @@
 
     <!-- Recent Sessions Table -->
     <div class="mt-8 bg-white rounded-2xl shadow-md p-6">
-        <h2 class="text-xl font-bold mb-4">Recent Study Sessions</h2>
+        <h2 class="text-xl  mb-4">Recent Study Sessions</h2>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -124,9 +124,18 @@
 
 </div>
 
-<button onclick="logout()" class="text-indigo-600 hover:text-indigo-800 font-medium">
-    Logout
-</button>
+
+
+<!-- Logout Button at Top Center -->
+<div class="w-full flex justify-center py-4 bg-transparent">
+
+    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+        Logout
+    </button>
+</div>
+
+
+
 
 <script>
     function logout() {

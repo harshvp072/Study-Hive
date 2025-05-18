@@ -135,7 +135,6 @@ function updateCalendarCard(data) {
 function createRadarChart(data) {
     const ctx = document.getElementById('radarChart');
 
-    // Ensure consistent weekday order
     const weekDaysOrder = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const chartData = weekDaysOrder.map(day => (data.weekdays[day] / 60).toFixed(1));
 
@@ -144,7 +143,7 @@ function createRadarChart(data) {
         data: {
             labels: weekDaysOrder,
             datasets: [{
-                label: 'Study Duration (hours)',
+                // ❌ No 'label' key
                 data: chartData,
                 backgroundColor: 'rgba(99, 102, 241, 0.2)',
                 borderColor: 'rgba(99, 102, 241, 1)',
@@ -155,6 +154,11 @@ function createRadarChart(data) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false  // ✅ Hide the legend
+                }
+            },
             scales: {
                 r: {
                     angleLines: { display: true },
@@ -167,6 +171,7 @@ function createRadarChart(data) {
         }
     });
 }
+
 
 function populateSessionsTable(sessions) {
     const tableBody = document.getElementById('sessionsTable');
