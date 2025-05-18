@@ -64,7 +64,6 @@ function updateGoalsCard(data) {
     }
 }
 
-
 function updateStreaksCard(data) {
     const weekDaysOrder = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     const streaksContainer = document.getElementById("streaksDays");
