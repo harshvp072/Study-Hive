@@ -172,7 +172,6 @@ function createRadarChart(data) {
     });
 }
 
-
 function populateSessionsTable(sessions) {
     const tableBody = document.getElementById('sessionsTable');
     tableBody.innerHTML = '';
