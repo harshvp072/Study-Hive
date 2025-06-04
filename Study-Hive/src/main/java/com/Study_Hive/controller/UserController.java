@@ -60,12 +60,9 @@ public class UserController {
         return session.getAttribute("user") != null;
     }
 
-
-
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/home.html";
     }
-
 }
