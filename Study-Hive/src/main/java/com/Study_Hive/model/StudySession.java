@@ -1,4 +1,5 @@
 package com.Study_Hive.model;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +28,12 @@ public class StudySession {
 
     @Column
     private String description;
+
+    // Many StudySessions can belong to one User
+    // FetchType.LAZY is crucial for performance to avoid loading User data
+    // unnecessarily when fetching StudySessions.
+    // The DTO conversion will handle the serialization part.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false) // Foreign key column name
+    private User user; // This represents the owner of the study session
 }

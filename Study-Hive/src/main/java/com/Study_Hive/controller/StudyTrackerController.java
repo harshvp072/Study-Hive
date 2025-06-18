@@ -1,6 +1,7 @@
 package com.Study_Hive.controller;
 
 import com.Study_Hive.model.StudySession;
+import com.Study_Hive.dto.StudySessionDto; // Import StudySessionDto
 import com.Study_Hive.service.StudyTrackerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,16 +20,16 @@ public class StudyTrackerController {
 
     @GetMapping("/dashboard")
     public Map<String, Object> getDashboardData() {
-        return service.getDashboardData();
+        return service.getDashboardDataForCurrentUser();
     }
 
     @PostMapping("/sessions")
-    public StudySession addSession(@RequestBody StudySession session) {
+    public StudySessionDto addSession(@RequestBody StudySession session) { // Expect StudySession, return DTO
         return service.saveSession(session);
     }
 
     @GetMapping("/sessions")
-    public List<StudySession> getAllSessions() {
-        return service.getAllSessions();
+    public List<StudySessionDto> getAllSessions() { // Return List of DTOs
+        return service.getAllSessionsForCurrentUser();
     }
 }
